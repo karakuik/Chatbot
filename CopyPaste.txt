@@ -1,0 +1,65 @@
+String userInput = new String();
+    String fileName = "User.txt";
+    Scanner scan = new Scanner(System.in);
+    File userFile = new File(fileName);
+
+    if(userFile.exists()){
+      text("Here we are!");
+      readFromFile(userFile);
+
+    }
+    //Hasn't been used
+    else{
+      text("I don't think we've met before, lets change that shall we?");
+      
+      //Create new file
+      try{
+        userFile.createNewFile();
+        text("File Created! " + userFile.getName());
+      }
+      catch(IOException e){
+        text("Oopsie woopsie, we made a widdle ewwow!");
+      }
+      
+      //Get basic user information & write to file
+      text("What is your name new User?");
+      userInput = scan.nextLine();
+      text("That is a nice name " + userInput);
+      writeToFile(userInput);
+      
+      text("How old are you?");
+      userInput = scan.nextLine();
+      text("You are " + userInput + " years young! Good for you!");
+      writeToFile(userInput);
+      text("Lets get started on some of my main features okay?");
+    }
+
+
+
+
+
+      static void writeToFile(String inputToWrite){
+    try{
+      FileWriter writer = new FileWriter("User.txt", true);
+      writer.write(inputToWrite + "\n");
+      writer.close();
+    }
+    catch(IOException e){
+      text("Ooooops sumtin wong!");
+      e.printStackTrace();
+    }
+  }//End of Write to File
+
+  //Read from file. Void RN, will need to change to string later.
+  static void readFromFile(File file){
+    try{
+      Scanner reader = new Scanner(file);
+      while(reader.hasNextLine()){
+        String fromFile = reader.nextLine();
+        text(fromFile);
+      }
+    }
+    catch(IOException e){
+      
+    }
+  }
